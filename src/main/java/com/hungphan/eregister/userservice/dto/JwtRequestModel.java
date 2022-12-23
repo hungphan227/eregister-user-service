@@ -1,4 +1,4 @@
-package com.hungphan.eregister.userservice.authentication;
+package com.hungphan.eregister.userservice.dto;
 
 import java.io.Serializable;
 public class JwtRequestModel implements Serializable {

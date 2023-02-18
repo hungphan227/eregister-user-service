@@ -23,14 +23,17 @@ public class User {
 
     private String username;
     private String password;
-
     private String fullName;
     private Integer age;
+    private Long balance;
+    private Long unavailableBalance;
 
-    public User(String username, String password, String fullName, Integer age) {
+    public User(String username, String password, String fullName, Integer age, Long balance, Long unavailableBalance) {
         this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.age = age;
+        this.balance = balance;
+        this.unavailableBalance = unavailableBalance;
     }
 }

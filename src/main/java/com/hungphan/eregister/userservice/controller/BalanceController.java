@@ -30,9 +30,9 @@ public class BalanceController {
     }
 
     @PutMapping("/balance/use-credit/{transactionId}")
-    ResponseEntity<Void> useCredit(@PathVariable Long transactionId) {
+    ResponseEntity<Void> useCredit(@PathVariable String requestId) {
         try {
-            balanceService.useCredit(transactionId);
+            balanceService.useCredit(requestId);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());
@@ -41,9 +41,9 @@ public class BalanceController {
     }
 
     @PutMapping("/balance/release-credit/{transactionId}")
-    ResponseEntity<Void> releaseCredit(@PathVariable Long transactionId) {
+    ResponseEntity<Void> releaseCredit(@PathVariable String requestId) {
         try {
-            balanceService.releaseCredit(transactionId);
+            balanceService.releaseCredit(requestId);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (Exception exception) {
             LOGGER.error(exception.getMessage());

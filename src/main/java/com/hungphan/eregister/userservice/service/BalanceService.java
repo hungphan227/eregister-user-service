@@ -10,8 +10,7 @@ import com.hungphan.eregister.userservice.repository.PendingCreditTransactionRep
 import com.hungphan.eregister.userservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 public class BalanceService {
@@ -25,12 +24,13 @@ public class BalanceService {
     @Autowired
     private UserRepository userRepository;
 
-    @Transactional(rollbackOn={Exception.class})
+    @Transactional
     public HoldingCreditResponseDto holdCredit(HoldingCreditRequestDto holdingCreditRequestDto) {
         PendingCreditTransaction pendingCreditTransaction = new PendingCreditTransaction();
         pendingCreditTransaction.setCreditAmount(holdingCreditRequestDto.getCreditAmount());
         pendingCreditTransaction.setUsername(holdingCreditRequestDto.getUsername());
         pendingCreditTransaction.setDescription(holdingCreditRequestDto.getDescription());
+        pendingCreditTransaction.setRequestId(holdingCreditRequestDto.getRequestId());
         PendingCreditTransaction persistedPendingCreditTransaction = pendingCreditTransactionRepository.save(pendingCreditTransaction);
 
         User user = userRepository.findByUsername(holdingCreditRequestDto.getUsername());
@@ -40,9 +40,9 @@ public class BalanceService {
         return new HoldingCreditResponseDto(persistedPendingCreditTransaction.getId());
     }
 
-    @Transactional(rollbackOn={Exception.class})
-    public void useCredit(Long transactionId) {
-        PendingCreditTransaction pendingCreditTransaction = pendingCreditTransactionRepository.getById(transactionId);
+    @Transactional
+    public void useCredit(String requestId) {
+        PendingCreditTransaction pendingCreditTransaction = pendingCreditTransactionRepository.findByRequestId(requestId);
         pendingCreditTransactionRepository.delete(pendingCreditTransaction);
         CompletedCreditTransaction completedCreditTransaction = new CompletedCreditTransaction();
         completedCreditTransaction.setCreditAmount(pendingCreditTransaction.getCreditAmount());
@@ -56,9 +56,9 @@ public class BalanceService {
         user.setBalance(user.getBalance() - pendingCreditTransaction.getCreditAmount());
     }
 
-    @Transactional(rollbackOn={Exception.class})
-    public void releaseCredit(Long transactionId) {
-        PendingCreditTransaction pendingCreditTransaction = pendingCreditTransactionRepository.getById(transactionId);
+    @Transactional
+    public void releaseCredit(String requestId) {
+        PendingCreditTransaction pendingCreditTransaction = pendingCreditTransactionRepository.findByRequestId(requestId);
         pendingCreditTransactionRepository.delete(pendingCreditTransaction);
         CompletedCreditTransaction completedCreditTransaction = new CompletedCreditTransaction();
         completedCreditTransaction.setCreditAmount(pendingCreditTransaction.getCreditAmount());

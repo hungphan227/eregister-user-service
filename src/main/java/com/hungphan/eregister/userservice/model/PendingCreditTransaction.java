@@ -19,7 +19,7 @@ public class PendingCreditTransaction {
     @GeneratedValue(generator = "PENDING_CREDIT_TRANSACTION_GEN", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "PENDING_CREDIT_TRANSACTION_GEN", sequenceName = "PENDING_CREDIT_TRANSACTION_SEQ", allocationSize = 1)
     private Long id;
-
+    private String requestId;
     private Long creditAmount;
     private String username;
     private String description;

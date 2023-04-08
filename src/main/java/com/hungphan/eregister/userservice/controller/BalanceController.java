@@ -29,7 +29,7 @@ public class BalanceController {
         }
     }
 
-    @PutMapping("/balance/use-credit/{transactionId}")
+    @PutMapping("/balance/use-credit/{requestId}")
     ResponseEntity<Void> useCredit(@PathVariable String requestId) {
         try {
             balanceService.useCredit(requestId);
@@ -40,7 +40,7 @@ public class BalanceController {
         }
     }
 
-    @PutMapping("/balance/release-credit/{transactionId}")
+    @PutMapping("/balance/release-credit/{requestId}")
     ResponseEntity<Void> releaseCredit(@PathVariable String requestId) {
         try {
             balanceService.releaseCredit(requestId);

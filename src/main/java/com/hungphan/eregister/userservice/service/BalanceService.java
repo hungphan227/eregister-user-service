@@ -43,6 +43,7 @@ public class BalanceService {
     @Transactional
     public void useCredit(String requestId) {
         PendingCreditTransaction pendingCreditTransaction = pendingCreditTransactionRepository.findByRequestId(requestId);
+        if (pendingCreditTransaction == null) return;
         pendingCreditTransactionRepository.delete(pendingCreditTransaction);
         CompletedCreditTransaction completedCreditTransaction = new CompletedCreditTransaction();
         completedCreditTransaction.setCreditAmount(pendingCreditTransaction.getCreditAmount());
@@ -59,6 +60,7 @@ public class BalanceService {
     @Transactional
     public void releaseCredit(String requestId) {
         PendingCreditTransaction pendingCreditTransaction = pendingCreditTransactionRepository.findByRequestId(requestId);
+        if (pendingCreditTransaction == null) return;
         pendingCreditTransactionRepository.delete(pendingCreditTransaction);
         CompletedCreditTransaction completedCreditTransaction = new CompletedCreditTransaction();
         completedCreditTransaction.setCreditAmount(pendingCreditTransaction.getCreditAmount());

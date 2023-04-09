@@ -46,6 +46,7 @@ public class BalanceService {
         if (pendingCreditTransaction == null) return;
         pendingCreditTransactionRepository.delete(pendingCreditTransaction);
         CompletedCreditTransaction completedCreditTransaction = new CompletedCreditTransaction();
+        completedCreditTransaction.setRequestId(pendingCreditTransaction.getRequestId());
         completedCreditTransaction.setCreditAmount(pendingCreditTransaction.getCreditAmount());
         completedCreditTransaction.setUsername(pendingCreditTransaction.getUsername());
         completedCreditTransaction.setDescription(pendingCreditTransaction.getDescription());
@@ -63,6 +64,7 @@ public class BalanceService {
         if (pendingCreditTransaction == null) return;
         pendingCreditTransactionRepository.delete(pendingCreditTransaction);
         CompletedCreditTransaction completedCreditTransaction = new CompletedCreditTransaction();
+        completedCreditTransaction.setRequestId(pendingCreditTransaction.getRequestId());
         completedCreditTransaction.setCreditAmount(pendingCreditTransaction.getCreditAmount());
         completedCreditTransaction.setUsername(pendingCreditTransaction.getUsername());
         completedCreditTransaction.setDescription(pendingCreditTransaction.getDescription());

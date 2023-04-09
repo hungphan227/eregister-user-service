@@ -19,7 +19,7 @@ public class CompletedCreditTransaction {
     @GeneratedValue(generator = "COMPLETED_CREDIT_TRANSACTION_GEN", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "COMPLETED_CREDIT_TRANSACTION_GEN", sequenceName = "COMPLETED_CREDIT_TRANSACTION_SEQ", allocationSize = 1)
     private Long id;
-
+    private String requestId;
     private Long creditAmount;
     private String username;
     private String description;
